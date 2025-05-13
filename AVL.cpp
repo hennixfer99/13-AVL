@@ -140,7 +140,15 @@ int fatorBalanceamento(NO* no) {
     return alturaNo(no->esq) - alturaNo(no->dir);
 }
 
-NO* girarDireita(NO* y) {  
+NO* girarDireita(NO* y) { 
+    
+    NO* x = y->esq;
+    y->esq = x->dir;
+    raiz = x;
+    x->dir = y;
+    y->altura = y->altura - 1;
+    x->altura = x->altura + 1; 
+        
    /* Rotação simples à direita  
              y                x  
             / \              / \  
@@ -156,10 +164,18 @@ NO* girarDireita(NO* y) {
    // Passo 5: Retorne o novo nó raiz ('x').  
 
 	// provisoriamente retorna o ponteiro passado como parâmetro
-	return y; 
+	return x; 
 }  
 
 NO* girarEsquerda(NO* x) {  
+
+    NO* y = x->dir;
+    x->dir = y->esq;
+    raiz = y;
+    y->esq = x;
+    x->altura = x->altura + 1;
+    y->altura = y->altura - 1; 
+
    /* Rotação simples à esquerda  
            x                    y  
           / \                  / \  
@@ -176,7 +192,7 @@ NO* girarEsquerda(NO* x) {
 
 
     // provisoriamente retorna o ponteiro passado como parâmetro
-    return x; 
+    return y; 
 }
 
 NO* insereArvore(NO* no, int valor) {
